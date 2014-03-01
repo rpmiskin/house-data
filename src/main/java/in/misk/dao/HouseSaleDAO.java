@@ -64,8 +64,7 @@ public class HouseSaleDAO {
 				.list();
 
 		LOGGER.info("Found " + findByCriteria.size() + " todos.");
-		throw new UnsupportedOperationException("Test of transaction");
-		// return findByCriteria.toArray(new HouseSaleEntity[0]);
+		return findByCriteria.toArray(new HouseSaleEntity[0]);
 	}
 
 	/**
