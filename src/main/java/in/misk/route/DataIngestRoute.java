@@ -1,41 +1,40 @@
 package in.misk.route;
 
-import org.apache.camel.processor.aggregate.AggregationStrategy;
 import org.apache.camel.spring.SpringRouteBuilder;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * Camel route to expose a REST webservice within the embedded jetty container.
+ * Camel route read a CSV and persist the contained records.
  * 
  */
 @Component
 public class DataIngestRoute extends SpringRouteBuilder {
 
-	@Autowired
-	CSVSplitter readLine;
+	Logger log = Logger.getLogger(getClass().getSimpleName());
 
 	@Autowired
-	CSVPersister persist;
+	private CSVSplitter readLine;
+
+	@Autowired
+	private CSVPersister persist;
 
 	@Override
 	public void configure() throws Exception {
 		//@formatter:off
-		from("file:/Users/richard/git/house-data/input")
+		from("file:input")
+		.routeId(getClass().getSimpleName())
+		// Log the name of the file being processed.
 		.log("${header.CamelFileAbsolutePath}")
 		// Convert the File body into an iterator
 		.bean(readLine)
 		// Split so each body is a CSV line
-		.split(body(), counter()).streaming().parallelProcessing()
+		.split(body(), new CountingAggregationStrategy(log)).streaming().parallelProcessing()
 			.bean(persist)
-			.log("${body}")
 		.end()
 		.log("TotalCount: ${body}");
 		// @formatter:on
-	}
-
-	private AggregationStrategy counter() {
-		return new CountingAggregationStrategy();
 	}
 
 }
