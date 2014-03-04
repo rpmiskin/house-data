@@ -14,6 +14,7 @@
 
 	<properties>
 		<camel.version>2.12.3</camel.version>
+		<cxf.version>2.7.10</cxf.version>
 	</properties>
 
 	<dependencies>
@@ -94,6 +95,12 @@
 			<artifactId>jackson-jaxrs</artifactId>
 			<version>1.9.13</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-rs-security-cors</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+
 
 		<!-- for testing -->
 		<dependency>
