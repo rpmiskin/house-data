@@ -33,6 +33,8 @@
 	<context:component-scan base-package="in.misk" />
 	<context:component-scan base-package="in.misk.route" />
 
+	<bean id="cors-filter"
+		class="org.eclipse.jetty.servlets.CrossOriginFilter" />
 
 	<!-- Start the camel context and start all routes that extends SpringRouteBuilder -->
 	<camelContext xmlns="http://camel.apache.org/schema/spring">

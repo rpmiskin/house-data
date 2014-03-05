@@ -64,19 +64,19 @@ public class HouseSaleResource {
 
 		final SaleDataPage salePage = mapper.getPage(pageSize, page, all);
 
-		return response(Status.OK).entity(salePage).build();
+		return Response.ok().entity(salePage).build();
 	}
 
 	@OPTIONS
 	@Path("sales")
 	public Response getOptions() {
-		return response(Status.OK).build();
+		return Response.ok().build();
 	}
 
 	@OPTIONS
 	@Path("todos/{id}")
 	public Response getOptions(@PathParam("id") final String ida) {
-		return response(Status.OK).build();
+		return Response.ok().build();
 	}
 
 	/**
@@ -93,29 +93,10 @@ public class HouseSaleResource {
 		ResponseBuilder response = null;
 		final SaleData sale = mapper.fromEntity(dao.get(id));
 		if (sale == null) {
-			response = response(Status.NOT_FOUND);
+			response = Response.status(Status.NOT_FOUND);
 		} else {
-			response = response(Status.OK).entity(sale);
+			response = Response.ok().entity(sale);
 		}
 		return response.build();
-	}
-
-	/**
-	 * Create a response with the supplied status and add the necessary headers
-	 * to enable CORS.
-	 * 
-	 * @param status
-	 *            the status to use in the response
-	 * @return a {@link ResponseBuilder} with the supplied status and headers to
-	 *         enable CORS.
-	 */
-	private ResponseBuilder response(final Status status) {
-		return Response
-				.status(status)
-				.header("Access-Control-Allow-Origin", "*")
-				.header("Access-Control-Allow-Methods",
-						"POST, GET, PUT, UPDATE, OPTIONS, DELETE")
-				.header("Access-Control-Allow-Headers",
-						"Content-Type, Accept, X-Requested-With");
 	}
 }

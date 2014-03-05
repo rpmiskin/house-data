@@ -19,7 +19,7 @@ public class RestRoute extends SpringRouteBuilder {
 	@Override
 	public void configure() throws Exception {
 		//@formatter:off
-		from("jetty://http://0.0.0.0:9000?matchOnUriPrefix=true")
+		from("jetty://http://0.0.0.0:9000?matchOnUriPrefix=true&filtersRef=cors-filter")
 		.to("cxfbean:houseSaleResource?providers=#json");
 		// @formatter:on
 	}
