@@ -3,7 +3,7 @@ target
 .project
 .settings
 input/.camel
-html/lib/*.js
-html/bootstrap-3.1.1-dist
+src/main/resources/html/lib/*.js
+src/main/resources/html/bootstrap-3.1.1-dist
 database
 derby.log

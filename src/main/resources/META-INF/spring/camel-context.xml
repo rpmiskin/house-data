@@ -33,8 +33,13 @@
 	<context:component-scan base-package="in.misk" />
 	<context:component-scan base-package="in.misk.route" />
 
-	<bean id="cors-filter"
-		class="org.eclipse.jetty.servlets.CrossOriginFilter" />
+	<bean id="cors-filter" class="org.eclipse.jetty.servlets.CrossOriginFilter" />
+
+	<bean id="file-handler" class="org.eclipse.jetty.server.handler.ResourceHandler">
+		<property name="directoriesListed" value="true" />
+		<property name="resourceBase"
+			value="#{new org.springframework.core.io.ClassPathResource('html').getURI().toString()}" />
+	</bean>
 
 	<!-- Start the camel context and start all routes that extends SpringRouteBuilder -->
 	<camelContext xmlns="http://camel.apache.org/schema/spring">
